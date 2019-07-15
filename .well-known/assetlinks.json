@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.example.mvvmkotlin",
-    "sha256_cert_fingerprints":
-    ["BF:72:B6:12:F7:18:8E:3C:CA:BA:A5:95:A6:F2:8C:A3:BA:44:01:32:FC:B8:7D:D2:25:8A:2B:98:02:70:E0:EB"]
-  }
-}]
