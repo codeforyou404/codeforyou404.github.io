@@ -1,1 +1,510 @@
-hello world....
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beautiful Blog Page</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --muted: #64748b;
+      --primary: #0f172a;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border: #e2e8f0;
+      --shadow: 0 22px 65px rgba(15, 23, 42, 0.08);
+      --radius: 24px;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+      color: var(--primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: min(1200px, 100% - 2rem);
+      margin: 0 auto;
+      padding: 2.5rem 0 4rem;
+    }
+
+    header {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1.4fr 1fr;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3.5vw, 3.75rem);
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      max-width: 12ch;
+    }
+
+    .hero-text {
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      max-width: 58ch;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      background: var(--accent-soft);
+      color: #1e40af;
+      border-radius: 999px;
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+    }
+
+    .hero-image {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4 / 5;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card img {
+      height: 230px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.75rem;
+    }
+
+    .card-topic {
+      color: #1d4ed8;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-excerpt {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 0.6rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .posts {
+      display: grid;
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+      grid-template-columns: minmax(0, 2fr) 420px;
+      align-items: start;
+    }
+
+    .blog-list {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .post {
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .post-header {
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 1rem;
+      padding: 1.75rem;
+    }
+
+    .post-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .post-summary {
+      color: var(--muted);
+      padding: 0 1.75rem 1.75rem;
+    }
+
+    .post-image {
+      overflow: hidden;
+      min-height: 180px;
+    }
+
+    .post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 1.75rem;
+    }
+
+    .sidebar-card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.15rem;
+    }
+
+    .author-panel {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .tag-list a {
+      display: inline-flex;
+      background: #eef2ff;
+      color: #4338ca;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+
+    .tag-list a:hover {
+      transform: translateY(-1px);
+    }
+
+    .newsletter {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .newsletter input {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      font-size: 1rem;
+      outline: none;
+      color: var(--primary);
+    }
+
+    .newsletter button {
+      background: #2563eb;
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-weight: 700;
+      padding: 0.95rem 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .newsletter button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 960px) {
+      header,
+      .posts {
+        grid-template-columns: 1fr;
+      }
+
+      .post-header {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image img {
+        aspect-ratio: 3 / 2;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 1.5rem 0 2rem;
+      }
+
+      .hero-card,
+      .card,
+      .post,
+      .sidebar-card {
+        border-radius: 22px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+
+      .post-excerpt,
+      .card-excerpt,
+      .hero-text {
+        font-size: 0.98rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <section class="hero-card">
+        <div class="hero-title">Stories, guides, and ideas for curious creators.</div>
+        <p class="hero-text">Explore a beautifully designed blog page with rich imagery, curated categories, and long-form posts filled with engaging dummy content. Perfect for inspiration, lifestyle writing, design thinking, and modern storytelling.</p>
+        <div class="hero-meta">
+          <span>Design &amp; Culture</span>
+          <span>Featured Articles</span>
+          <span>Creative Writing</span>
+        </div>
+      </section>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80" alt="Blog hero image" />
+      </div>
+    </header>
+
+    <section class="grid grid-3">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Travel blog" />
+        <div class="card-body">
+          <div class="card-topic">Travel Inspiration</div>
+          <h2 class="card-title">Discover the hidden corners of the coast</h2>
+          <p class="card-excerpt">A vivid journey along the shoreline, where artful days blend into nights lit by bonfires, stars, and slow conversations. This story is full of spontaneous detours and dreamy seaside notes.</p>
+          <div class="card-footer">
+            <span>June 21, 2026</span>
+            <span class="badge">Read more</span>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=900&q=80" alt="Food blog" />
+        <div class="card-body">
+          <div class="card-topic">Food &amp; Culture</div>
+          <h2 class="card-title">Savory moments in the heart of the city</h2>
+          <p class="card-excerpt">A long-form culinary essay that explores the soul of city dining, from hidden cafés to fragrant street kitchens, each paragraph a taste of texture, memory, and community.</p>
+          <div class="card-footer">
+            <span>May 15, 2026</span>
+            <span class="badge">Read more</span>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=80" alt="Mindfulness blog" />
+        <div class="card-body">
+          <div class="card-topic">Mindful Living</div>
+          <h2 class="card-title">How slow mornings transform your week</h2>
+          <p class="card-excerpt">Every sunrise is a fresh invitation. Dive into practical rituals, reflective ideas, and gentle routines designed to help you stay grounded and intentional throughout every day.</p>
+          <div class="card-footer">
+            <span>April 1, 2026</span>
+            <span class="badge">Read more</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="posts">
+      <div class="blog-list">
+        <article class="post">
+          <div class="post-header">
+            <div>
+              <div class="post-topic badge">In-Depth Story</div>
+              <h2 class="post-title">An expansive creative essay on design, dreams, and daily rhythms.</h2>
+              <div class="post-meta">By Aisha Khan · 12 min read · Creative process, Lifestyle</div>
+            </div>
+            <div class="post-image">
+              <img src="https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=900&q=80" alt="Design workspace" />
+            </div>
+          </div>
+          <div class="post-summary">
+            <p>Long text can feel rich and engaging when it is layered with detail. Imagine a morning that begins in quiet focus, carries through a city of textures and color, and ends with reflection on what made the day feel meaningful. This article is your guide to embracing creative momentum through small daily rituals.</p>
+            <p>Dummy paragraphs, playful metaphors, and structured insights create a narrative flow. Each sentence adds volume to the page, inviting readers to slow down and savor the words. The goal is not just to fill space, but to make every line feel intentional, vivid, and surprisingly personal.</p>
+          </div>
+        </article>
+
+        <article class="post">
+          <div class="post-header">
+            <div>
+              <div class="post-topic badge">Featured Guide</div>
+              <h2 class="post-title">A complete style handbook for modern writing and visual storytelling.</h2>
+              <div class="post-meta">By Nav Patel · 9 min read · Writing, Visual habits</div>
+            </div>
+            <div class="post-image">
+              <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80" alt="Writer desk" />
+            </div>
+          </div>
+          <div class="post-summary">
+            <p>This guide explores narrative structure, typography, and the energy of momentum that helps keep readers engaged. A compelling opening, thoughtful pacing, and strong imagery are the pillars of memorable blog writing.</p>
+            <p>Whether you're drafting your next newsletter, crafting an essay, or curating a visual series, practice will help you refine voice, rhythm, and the small details that make prose feel warm, human, and completely yours.</p>
+          </div>
+        </article>
+      </div>
+
+      <aside class="sidebar">
+        <section class="sidebar-card">
+          <div class="author-panel">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="Author avatar" /></div>
+            <div class="author-info">
+              <strong>Rachel Summers</strong>
+              <span>Editor &amp; storyteller</span>
+            </div>
+          </div>
+          <p>Rachel writes about lifestyle, design systems, and creative habits. She believes every page should feel like a thoughtful conversation, not just another scrollable feed.</p>
+        </section>
+
+        <section class="sidebar-card">
+          <h3>Popular tags</h3>
+          <div class="tag-list">
+            <a href="#">Travel</a>
+            <a href="#">Wellness</a>
+            <a href="#">Food</a>
+            <a href="#">Design</a>
+            <a href="#">Writing</a>
+            <a href="#">Photography</a>
+          </div>
+        </section>
+
+        <section class="sidebar-card newsletter">
+          <h3>Join the newsletter</h3>
+          <p>Get fresh posts, ideas, and inspiration delivered straight to your inbox every week.</p>
+          <input type="email" placeholder="Enter your email address" />
+          <button type="button">Subscribe now</button>
+        </section>
+      </aside>
+    </section>
+
+    <footer>
+      Crafted with care for modern blogs and beautifully detailed content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </footer>
+  </main>
+</body>
+</html>
